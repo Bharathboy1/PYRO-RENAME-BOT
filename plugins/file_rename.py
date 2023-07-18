@@ -44,7 +44,9 @@ async def rename_start(client, message):
 async def refunc(client, message):
     reply_message = message.reply_to_message
     if (reply_message.reply_markup) and isinstance(reply_message.reply_markup, ForceReply):
-        new_name = message.text 
+        new_name = message.text
+        new_name = new_name.replace(".", " ").replace("_", " ").replace(" ", " ")
+
         await message.delete() 
         msg = await client.get_messages(message.chat.id, reply_message.id)
         file = msg.reply_to_message
@@ -73,6 +75,8 @@ async def refunc(client, message):
 @Client.on_callback_query(filters.regex("upload"))
 async def doc(bot, update):    
     new_name = update.message.text
+    new_name = new_name.replace(".", " ").replace("_", " ").replace(" ", " ")
+
     new_filename = new_name.split(":-")[1]
     file_path = f"downloads/{new_filename}"
     file = update.message.reply_to_message
@@ -152,8 +156,3 @@ async def doc(bot, update):
     await ms.delete() 
     os.remove(file_path) 
     if ph_path: os.remove(ph_path) 
-
-
-
-
-
