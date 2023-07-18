@@ -47,7 +47,7 @@ async def refunc(client, message):
     reply_message = message.reply_to_message
     if (reply_message.reply_markup) and isinstance(reply_message.reply_markup, ForceReply):
         new_name = message.text
-        new_name = new_name.replace(".", " ").replace("_", " ").replace(" ", " ")
+        new_name = new_name.replace("_", " ").replace(" ", " ")
 
         await message.delete() 
         msg = await client.get_messages(message.chat.id, reply_message.id)
